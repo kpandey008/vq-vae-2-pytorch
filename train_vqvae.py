@@ -27,6 +27,7 @@ def train(epoch, loader, model, optimizer, scheduler, device):
 
     mse_sum = 0
     mse_n = 0
+    lr = optimizer.param_groups[0]["lr"]
 
     for i, (img, _, _) in enumerate(loader):
         model.zero_grad()
