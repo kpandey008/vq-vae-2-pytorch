@@ -45,11 +45,7 @@ def train(epoch, loader, model, optimizer, scheduler, device):
         optimizer.step()
 
         loader.set_postfix_str(
-            f'''
-                epoch: {epoch + 1}; mse: {recon_loss.item():.5f};
-                latent: {latent_loss.item():.3f}; total: {loss.item():.5f};
-                lr: {lr:.5f}
-            '''
+            f'Step: {i + 1}: MSE: {recon_loss.item():.5f}; Latent: {latent_loss.item():.3f}; Total: {loss.item():.5f}'
         )
 
         # part_mse_sum = recon_loss.item() * img.shape[0]
