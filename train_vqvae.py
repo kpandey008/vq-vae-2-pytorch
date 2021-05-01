@@ -10,6 +10,7 @@ from torchvision import datasets, transforms, utils
 
 from tqdm import tqdm
 
+from dataset import CUBDataset
 from vqvae import VQVAE
 from scheduler import CycleScheduler
 import distributed as dist
@@ -95,7 +96,8 @@ def main(args):
         ]
     )
 
-    dataset = datasets.ImageFolder(args.path, transform=transform)
+    # dataset = datasets.ImageFolder(args.path, transform=transform)
+    dataset = CUBDataset(args.path, mode='train', transform=transform)
     sampler = dist.data_sampler(dataset, shuffle=True, distributed=args.distributed)
     loader = DataLoader(
         dataset, batch_size=128 // args.n_gpu, sampler=sampler, num_workers=2
@@ -121,6 +123,7 @@ def main(args):
             warmup_proportion=0.05,
         )
 
+    print(args)
     for i in range(args.epoch):
         train(i, loader, model, optimizer, scheduler, device)
 
