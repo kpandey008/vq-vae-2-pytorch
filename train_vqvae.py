@@ -46,7 +46,7 @@ def train(epoch, loader, model, optimizer, scheduler, device):
         loader.set_postfix_str(
             f'''
                 epoch: {epoch + 1}; mse: {recon_loss.item():.5f};
-                latent: {latent_loss.item():.3f}; avg mse: {mse_sum / mse_n:.5f};
+                latent: {latent_loss.item():.3f}; total: {loss.item():.5f};
                 lr: {lr:.5f}
             '''
         )
